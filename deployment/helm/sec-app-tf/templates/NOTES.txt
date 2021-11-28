@@ -1,0 +1,9 @@
+1. Get the application URL by running these commands:
+
+NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+      You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "sec-app-tf.fullname" . }}'
+export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "sec-app-tf.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+echo http://$SERVICE_IP
+
+2. Exporting TF variable to link API GW and NLB
+export TF_VAR_integration_uri=http://$SERVICE_IP
