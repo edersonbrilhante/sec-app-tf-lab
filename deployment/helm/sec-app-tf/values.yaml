@@ -1,0 +1,27 @@
+image:
+  repository: edersonbrilhante/sec-app-tf
+  pullPolicy: IfNotPresent
+  tag: "0.1.0"
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext: 
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10001
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources: 
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
